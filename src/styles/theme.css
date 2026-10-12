@@ -1,0 +1,53 @@
+/*
+  theme.css -- Personal Kakeibo theme overrides.
+  Apple-inspired fintech palette: Emerald & Teal tones with Amber accents.
+*/
+
+:root {
+	--color-brand: light-dark(#0d9488, #14b8a6);
+	--color-brand-strong: light-dark(#0f766e, #0d9488);
+	--color-brand-soft: light-dark(#2dd4bf, #5eead4);
+	--color-accent: light-dark(#f59e0b, #fbbf24);
+	--color-accent-soft: light-dark(#fde68a, #fef08a);
+
+	--gradient-brand: linear-gradient(135deg, #0d9488 0%, #0284c7 100%);
+	--gradient-brand-strong: linear-gradient(135deg, #0f766e 0%, #0369a1 100%);
+	--gradient-brand-soft: linear-gradient(135deg, rgba(13, 148, 136, 0.16) 0%, rgba(2, 132, 199, 0.16) 100%);
+	--gradient-headline: linear-gradient(135deg, light-dark(#0f172a, #f8fafc) 0%, light-dark(#0d9488, #2dd4bf) 100%);
+
+	--color-success: #10b981;
+	--color-warning: #f59e0b;
+	--color-danger: light-dark(#ef4444, #f87171);
+
+	--font-weight-display: 800;
+	--font-weight-heading: 700;
+}
+
+/* Site logo styling in header and footer */
+.site-logo {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+	font-weight: 700;
+	text-decoration: none;
+	color: var(--color-text);
+}
+
+.site-logo-icon {
+	border-radius: var(--radius-sm);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.badge-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 12px;
+	border-radius: 9999px;
+	font-size: var(--font-size-xs);
+	font-weight: 600;
+	background: var(--gradient-brand-soft);
+	color: var(--color-brand);
+	border: 1px solid var(--color-brand-soft);
+	margin-bottom: var(--spacing-md);
+}
