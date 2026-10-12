@@ -1,20 +1,10 @@
 ---
 import { Icon } from "astro-iconset/components";
-import { getEmDashEntry, getSeoMeta } from "emdash";
 import MarketingBlocks from "../components/MarketingBlocks.astro";
 import Base from "../layouts/Base.astro";
+import { pagesData } from "../data/site";
 
-const { entry: page, cacheHint } = await getEmDashEntry("pages", "contact");
-
-if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
-
-const seo = page
-	? getSeoMeta(page, {
-			siteUrl: Astro.url.origin,
-			path: "/contact",
-			defaultDescription: "Personal Kakeibo に関する仕様、技術情報、フィードバック・お問い合わせはこちらから。",
-		})
-	: null;
+const page = pagesData.contact;
 
 const contactMethods = [
 	{
@@ -42,17 +32,13 @@ const contactMethods = [
 ---
 
 <Base
-	title={seo?.title || "お問い合わせ"}
-	pageTitle={page?.data.title || "お問い合わせ"}
-	description={seo?.description}
-	image={seo?.ogImage}
-	canonical={seo?.canonical}
-	robots={seo?.robots}
-	content={page ? { collection: "pages", id: page.data.id, slug: page.id } : undefined}
+	title="お問い合わせ"
+	pageTitle={page.title}
+	description="Personal Kakeibo に関する仕様、技術情報、フィードバック・お問い合わせはこちらから。"
 >
-	{page?.data.content && (
-		<div {...page.edit.content}>
-			<MarketingBlocks value={page.data.content} />
+	{page.content && (
+		<div>
+			<MarketingBlocks value={page.content} />
 		</div>
 	)}
 

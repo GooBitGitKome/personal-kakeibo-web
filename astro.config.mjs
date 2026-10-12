@@ -1,15 +1,9 @@
-import node from "@astrojs/node";
 import react from "@astrojs/react";
 import icon from "astro-iconset";
 import { defineConfig, fontProviders } from "astro/config";
-import emdash, { local } from "emdash/astro";
-import { sqlite } from "emdash/db";
 
 export default defineConfig({
-	output: "server",
-	adapter: node({
-		mode: "standalone",
-	}),
+	output: "static",
 	image: {
 		layout: "constrained",
 		responsiveStyles: true,
@@ -39,13 +33,6 @@ export default defineConfig({
 					"users-three",
 				],
 			},
-		}),
-		emdash({
-			database: sqlite({ url: "file:./data.db" }),
-			storage: local({
-				directory: "./uploads",
-				baseUrl: "/_emdash/api/media/file",
-			}),
 		}),
 	],
 	fonts: [

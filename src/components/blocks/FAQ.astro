@@ -1,9 +1,16 @@
 ---
-import type { BlockComponentProps } from "emdash/ui";
-import type { PageContentBlock } from "../../../emdash-env";
+interface FAQItem {
+	question: string;
+	answer: string;
+}
 
-type FAQBlock = Extract<PageContentBlock, { _type: "marketing_faq" }>;
-type Props = BlockComponentProps<FAQBlock>;
+interface Props {
+	value: {
+		anchor_id?: string;
+		headline?: string;
+		items: FAQItem[];
+	};
+}
 
 const { value } = Astro.props;
 const { anchor_id, headline, items } = value;

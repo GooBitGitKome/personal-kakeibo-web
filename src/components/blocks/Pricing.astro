@@ -1,19 +1,36 @@
 ---
-import { sanitizeHref } from "emdash";
-import type { BlockComponentProps } from "emdash/ui";
-import type { PageContentBlock } from "../../../emdash-env";
+interface RawPlan {
+	name: string;
+	price: string;
+	period?: string;
+	description?: string;
+	features?: string;
+	cta_label?: string;
+	cta_url?: string;
+	highlighted?: boolean;
+}
 
-type PricingBlock = Extract<PageContentBlock, { _type: "marketing_pricing" }>;
-type Props = BlockComponentProps<PricingBlock>;
+interface Props {
+	value: {
+		anchor_id?: string;
+		headline?: string;
+		plans: RawPlan[];
+	};
+}
+
+function sanitizeHref(url?: string): string {
+	if (!url) return "#";
+	return url;
+}
 
 const { value } = Astro.props;
 const { anchor_id, headline, plans: rawPlans } = value;
 
-const plans = rawPlans.map((plan) => ({
+const plans = (rawPlans || []).map((plan: RawPlan) => ({
 	...plan,
 	features: (plan.features ?? "")
 		.split("\n")
-		.map((s) => s.trim())
+		.map((s: string) => s.trim())
 		.filter(Boolean),
 	cta: {
 		label: plan.cta_label,

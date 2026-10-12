@@ -1,8 +1,6 @@
 ---
-import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
-import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
-import { createPublicPageContext } from "emdash/page";
 import { Font } from "astro:assets";
+import { siteSettings, menus } from "../data/site";
 import "../styles/tokens.css";
 import "../styles/theme.css";
 
@@ -13,63 +11,22 @@ interface Props {
 	image?: string | null;
 	canonical?: string | null;
 	robots?: string | null;
-	content?: { collection: string; id: string; slug?: string | null };
+	content?: any;
 }
 
-const { title, pageTitle, description, image, canonical, robots, content } = Astro.props;
-const [settingsResult, menuResult, footerProductResult, footerCompanyResult, footerSupportResult] =
-	await Promise.all([
-		getSiteSettingsWithCacheHint(),
-		getMenuWithCacheHint("primary"),
-		getMenuWithCacheHint("footer_product"),
-		getMenuWithCacheHint("footer_company"),
-		getMenuWithCacheHint("footer_support"),
-	]);
+const { title, pageTitle, description, image, canonical, robots } = Astro.props;
 
-if (Astro.cache?.enabled) {
-	for (const result of [
-		settingsResult,
-		menuResult,
-		footerProductResult,
-		footerCompanyResult,
-		footerSupportResult,
-	]) {
-		Astro.cache.set(result.cacheHint);
-	}
-}
+const siteTitle = siteSettings.title;
+const effectiveTitle = pageTitle || title;
+const fullTitle = effectiveTitle ? (effectiveTitle.includes(siteTitle) ? effectiveTitle : `${effectiveTitle} — ${siteTitle}`) : siteTitle;
+const siteDescription = description || siteSettings.tagline;
 
-const settings = settingsResult.data;
-const siteTitle = settings?.title || "Acme";
-const fullTitle = title ? (title.includes(siteTitle) ? title : `${title} — ${siteTitle}`) : siteTitle;
-const siteDescription =
-	settings?.tagline || "Build products people actually want";
-const siteLogo = settings.logo?.url ? settings.logo : null;
-const menu = menuResult.data;
-const footerProduct = footerProductResult.data;
-const footerCompany = footerCompanyResult.data;
-const footerSupport = footerSupportResult.data;
-
+const menu = menus.primary;
 const footerColumns = [
-	{ heading: "Product", menu: footerProduct },
-	{ heading: "Company", menu: footerCompany },
-	{ heading: "Support", menu: footerSupport },
-].filter((col) => col.menu && col.menu.items.length > 0);
-
-const pageCtx = createPublicPageContext({
-	Astro,
-	kind: content ? "content" : "custom",
-	pageType: "website",
-	title: fullTitle,
-	pageTitle: pageTitle ?? title ?? siteTitle,
-	description: description || siteDescription,
-	canonical: canonical ?? `${Astro.url.origin}${Astro.url.pathname}`,
-	image,
-	content,
-	seo: { ogImage: image, robots },
-	siteName: siteTitle,
-});
-
-const isLoggedIn = !!Astro.locals.user;
+	{ heading: "プロダクト", items: menus.footer_product },
+	{ heading: "サイト情報", items: menus.footer_company },
+	{ heading: "サポート", items: menus.footer_support },
+];
 ---
 
 <!doctype html>
@@ -79,7 +36,13 @@ const isLoggedIn = !!Astro.locals.user;
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>{fullTitle}</title>
-		<EmDashHead page={pageCtx} />
+		<meta name="description" content={siteDescription} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={siteDescription} />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content={image || "/app-icon.png"} />
+		{canonical && <link rel="canonical" href={canonical} />}
+		{robots && <meta name="robots" content={robots} />}
 		<Font cssVariable="--font-body" preload />
 		<script is:inline>
 			// Apply an explicit theme choice immediately to prevent flash.
@@ -95,7 +58,6 @@ const isLoggedIn = !!Astro.locals.user;
 		</script>
 	</head>
 	<body>
-		<EmDashBodyStart page={pageCtx} />
 		<header class="site-header">
 			<nav class="nav">
 				<a href="/" class="site-logo">
@@ -110,11 +72,9 @@ const isLoggedIn = !!Astro.locals.user;
 				</a>
 				<div class="nav-links">
 					{
-						menu?.items.map((item) => (
+						menu.map((item) => (
 							<a
 								href={item.url}
-								target={item.target}
-								rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
 							>
 								{item.label}
 							</a>
@@ -122,7 +82,6 @@ const isLoggedIn = !!Astro.locals.user;
 					}
 				</div>
 				<div class="nav-actions">
-					{isLoggedIn && <a href="/_emdash/admin" class="nav-admin">管理画面</a>}
 					<a href="/#features" class="btn btn-primary nav-cta">機能を見る</a>
 				</div>
 			</nav>
@@ -146,7 +105,7 @@ const isLoggedIn = !!Astro.locals.user;
 						<span>{siteTitle}</span>
 					</span>
 					<p class="footer-tagline">
-						{settings?.tagline || "iOS・iPadOSのための、美しく軽快なプライベート家計簿"}
+						{siteSettings.tagline}
 					</p>
 				</div>
 				<div class="footer-links">
@@ -154,11 +113,10 @@ const isLoggedIn = !!Astro.locals.user;
 						footerColumns.map((col) => (
 							<div class="footer-col">
 								<h4>{col.heading}</h4>
-								{col.menu!.items.map((item) => (
+								{col.items.map((item) => (
 									<a
 										href={item.url}
-										target={item.target}
-										rel={item.target ? "noopener noreferrer" : undefined}>
+									>
 										{item.label}
 									</a>
 								))}
@@ -195,13 +153,8 @@ const isLoggedIn = !!Astro.locals.user;
 						aria-label="System theme">System</button
 					>
 				</div>
-				<p class="footer-powered">
-					Powered by <a href="https://emdashcms.com">EmDash</a>
-				</p>
 			</div>
 		</footer>
-
-		<EmDashBodyEnd page={pageCtx} />
 
 		<script>
 			// Theme switcher

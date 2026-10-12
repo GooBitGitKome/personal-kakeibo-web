@@ -1,9 +1,19 @@
 ---
-import { Image, type BlockComponentProps } from "emdash/ui";
-import type { PageContentBlock } from "../../../emdash-env";
+interface TestimonialItem {
+	quote: string;
+	author: string;
+	role?: string;
+	company?: string;
+	avatar?: { src: string } | string;
+}
 
-type TestimonialsBlock = Extract<PageContentBlock, { _type: "marketing_testimonials" }>;
-type Props = BlockComponentProps<TestimonialsBlock>;
+interface Props {
+	value: {
+		anchor_id?: string;
+		headline?: string;
+		testimonials: TestimonialItem[];
+	};
+}
 
 const { value } = Astro.props;
 const { anchor_id, headline, testimonials } = value;
@@ -22,12 +32,12 @@ const { anchor_id, headline, testimonials } = value;
 					<blockquote class="testimonial-quote">{testimonial.quote}</blockquote>
 					<div class="testimonial-author">
 						{testimonial.avatar && (
-							<Image
-								image={testimonial.avatar}
+							<img
+								src={typeof testimonial.avatar === "object" ? testimonial.avatar.src : testimonial.avatar}
 								alt=""
 								class="testimonial-avatar"
-								width={48}
-								height={48}
+								width="48"
+								height="48"
 							/>
 						)}
 						<div class="testimonial-info">

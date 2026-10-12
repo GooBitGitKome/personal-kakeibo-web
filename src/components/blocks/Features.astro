@@ -1,10 +1,20 @@
 ---
 import { Icon } from "astro-iconset/components";
-import type { BlockComponentProps } from "emdash/ui";
-import type { PageContentBlock } from "../../../emdash-env";
 
-type FeaturesBlock = Extract<PageContentBlock, { _type: "marketing_features" }>;
-type Props = BlockComponentProps<FeaturesBlock>;
+interface FeatureItem {
+	icon: string;
+	title: string;
+	description: string;
+}
+
+interface Props {
+	value: {
+		anchor_id?: string;
+		headline?: string;
+		subheadline?: string;
+		features: FeatureItem[];
+	};
+}
 
 const { value } = Astro.props;
 const { anchor_id, headline, subheadline, features } = value;

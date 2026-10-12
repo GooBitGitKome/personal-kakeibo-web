@@ -1,4 +1,4 @@
 declare module 'astro:assets' {
 	/** @internal */
-	export type CssVariable = (["--font-body","--font-emdash"])[number];
+	export type CssVariable = (["--font-body"])[number];
 }

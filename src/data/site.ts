@@ -1,0 +1,257 @@
+export interface MenuItem {
+	label: string;
+	url: string;
+	target?: string;
+}
+
+export interface SiteSettings {
+	title: string;
+	tagline: string;
+	description: string;
+}
+
+export const siteSettings: SiteSettings = {
+	title: "Personal Kakeibo",
+	tagline: "素早く記録、確実に把握。毎日の収支と予算を美しく管理する個人用家計簿",
+	description: "iOS・iPadOSのための、美しく軽快なプライベート家計簿。電卓ライクな超高速入力、ジャンル別の日額・月額予算、カスタムリマインダー通知、安心の完全ローカル＆iCloud同期。広告も追跡も一切ありません。",
+};
+
+export const menus = {
+	primary: [
+		{ label: "特徴", url: "/#features" },
+		{ label: "設計思想", url: "/#philosophy" },
+		{ label: "よくある質問", url: "/#faq" },
+		{ label: "料金", url: "/pricing" },
+		{ label: "お問い合わせ", url: "/contact" },
+	],
+	footer_product: [
+		{ label: "主な特徴", url: "/#features" },
+		{ label: "設計思想", url: "/#philosophy" },
+		{ label: "料金 (完全無料)", url: "/pricing" },
+	],
+	footer_company: [
+		{ label: "ホーム", url: "/" },
+		{ label: "よくある質問", url: "/#faq" },
+		{ label: "お問い合わせ", url: "/contact" },
+	],
+	footer_support: [
+		{ label: "料金プラン", url: "/pricing" },
+		{ label: "お問い合わせ", url: "/contact" },
+		{ label: "メール", url: "mailto:support@kakeibo.example" },
+	],
+};
+
+export const pagesData = {
+	home: {
+		title: "Home",
+		content: [
+			{
+				_type: "marketing_hero",
+				_version: 1,
+				_key: "hero",
+				headline: "毎日の収支と予算を、もっと軽快に。",
+				subheadline:
+					"iOS・iPadOSのための、美しく軽快なプライベート家計簿。電卓ライクな超高速入力、ジャンル別の日額・月額予算、カスタムリマインダー通知、安心の完全ローカル＆iCloud同期。広告も追跡も一切ありません。",
+				primary_cta_label: "機能を見る",
+				primary_cta_url: "/#features",
+				secondary_cta_label: "料金プラン (完全無料)",
+				secondary_cta_url: "/pricing",
+			},
+			{
+				_type: "marketing_features",
+				_version: 1,
+				_key: "features",
+				anchor_id: "features",
+				headline: "家計管理が自然と続く、妥協なき設計",
+				subheadline:
+					"毎日の手入力をストレスフリーにする細部へのこだわりと、日々の予算管理・リマインダーを追求した機能群",
+				features: [
+					{
+						icon: "zap",
+						title: "電卓のような超高速入力",
+						description:
+							"3列ジャンル選択、長押しで頻出ジャンル固定（★）、00キー、一括消去ボタン（丸付き×）、下スワイプでのキーボード即収納など、指先ひとつの快感を追求。",
+					},
+					{
+						icon: "shield",
+						title: "徹底したプライバシー保護",
+						description:
+							"広告・外部解析SDK・独自サーバーを完全排除。データはお手元の端末（SwiftData）とAppleのiCloud Private Database（CloudKit）のみに安全に保存。",
+					},
+					{
+						icon: "chart",
+						title: "日額・月額予算 & リアルタイム残額",
+						description:
+							"食費や日用品などジャンル別の上限管理。保存・編集・削除の瞬間に当日の残額を画面に即座にフィードバックし、使いすぎを未然に防ぎます。",
+					},
+					{
+						icon: "clock",
+						title: "日割り予算 & 収支リマインダー",
+						description:
+							"毎日・毎週・毎月の定期収支を管理。日額優先・月額日割りによる1日分の予算通知や定期収支の確認通知を朝・昼・夕（最大3枠）でお届け。",
+					},
+					{
+						icon: "star",
+						title: "Swift Chartsによる美しい可視化",
+						description:
+							"月別収支、ジャンル別支出の内訳、そして12か月の推移チャート。カレンダーには収支のある日にドットを表示し、視覚的な振り返りが容易です。",
+					},
+					{
+						icon: "code",
+						title: "安心のデータ保全 & CSV/JSON入出力",
+						description:
+							"スプレッドシート連携に便利なCSVエクスポートと、設定・予算・繰り返し収支・履歴を丸ごと復元できるプレビュー付きJSONバックアップに対応。",
+					},
+				],
+			},
+			{
+				_type: "marketing_testimonials",
+				_version: 1,
+				_key: "philosophy",
+				anchor_id: "philosophy",
+				headline: "シンプルさと安全性を最優先した設計思想",
+				testimonials: [
+					{
+						quote:
+							"広告や課金のポップアップに邪魔されず、電卓のようにサクサク収支が入れられる。00キーと長押しで初期ジャンルが決まるのが本当に快適です。",
+						author: "iOS開発チーム",
+						role: "UI/UXデザイン検証",
+						company: "Personal Kakeibo",
+					},
+					{
+						quote:
+							"金融機関と連携させず手入力したい派にとっての理想形。日額予算の残額が入力直後にわかるので、日々の無駄遣いが自然と抑制されます。",
+						author: "家計管理テスター",
+						role: "実機テスト担当",
+						company: "Personal Finance",
+					},
+					{
+						quote:
+							"iPhoneとiPadの間でiCloud同期が自然に効き、自分のAppleアカウントだけで完結する安心感があります。",
+						author: "ミニマリスト利用者",
+						role: "マルチデバイス活用",
+						company: "Apple Ecosystem",
+					},
+				],
+			},
+			{
+				_type: "marketing_faq",
+				_version: 1,
+				_key: "faq",
+				anchor_id: "faq",
+				headline: "よくあるご質問 (FAQ)",
+				items: [
+					{
+						question: "対応しているiOS / iPadOSのバージョンは？",
+						answer:
+							"iOS 17およびiPadOS 17以降に対応しています。SwiftUI、SwiftData、Swift Chartsを活用し、最新のOS機能に最適化されています。Dynamic TypeやVoiceOverによるアクセシビリティにも配慮しています。",
+					},
+					{
+						question: "利用料金やサブスクリプションはありますか？",
+						answer:
+							"いいえ。Personal Kakeiboは完全無料でオープンに利用できます。有料プラン、アプリ内課金、機能制限、広告表示は一切ありません。",
+					},
+					{
+						question: "個人情報や家計データは外部に送信されますか？",
+						answer:
+							"いいえ。サードパーティの解析ツール、広告SDK、独自サーバー等は一切組み込まれていません。データはお手元の端末（SwiftData）に保存され、iCloud同期を使用する場合もAppleの公式プライベートデータベース (CloudKit) のみを経由します。",
+					},
+					{
+						question: "銀行やクレジットカードの自動明細取得には対応していますか？",
+						answer:
+							"対応していません。あえて金融機関へのログイン連携を行わず、「使ったその場で意識して手入力する」ことで無駄遣いを抑制し、金融情報の漏洩リスクをゼロに抑える思想で設計されています。",
+					},
+					{
+						question: "日割り予算やリマインダー通知はどのように動きますか？",
+						answer:
+							"ジャンルごとの日額設定、または月額設定の日割り概算（1円未満切り捨て）を、朝・昼・夕など登録した時刻（最大3枠）に通知します。通知をタップすると最新の残額や未記録の予定をすぐに確認できます。",
+					},
+					{
+						question: "データのバックアップやPCでの分析はできますか？",
+						answer:
+							"はい。取引一覧をCSVファイルとして書き出せるほか、ジャンル設定や予算、繰り返し予定を含む完全なJSONバックアップ＆復元（差分プレビュー確認付き）に対応しています。",
+					},
+				],
+			},
+		],
+	},
+	pricing: {
+		title: "Pricing",
+		content: [
+			{
+				_type: "marketing_hero",
+				_version: 1,
+				_key: "pricing-hero",
+				headline: "シンプルで明快。完全無料・オープン",
+				subheadline:
+					"広告なし、サブスクリプションなし、隠れた費用なし。あなたの大切な資産を、余計なコストなく管理できます。",
+				centered: true,
+			},
+			{
+				_type: "marketing_pricing",
+				_version: 1,
+				_key: "pricing-plans",
+				plans: [
+					{
+						name: "Personal (基本利用)",
+						price: "¥0",
+						period: "完全無料",
+						description: "日常の収支をスピーディに管理したい方に",
+						features:
+							"高速電卓入力 & 00キー\nジャンル別 日額・月額予算設定\n収支リマインダー (最大3枠)\n繰り返し収支の定期管理\nSwift Charts 12か月推移グラフ\nCSVエクスポート & JSON完全バックアップ",
+						cta_label: "機能を見る",
+						cta_url: "/#features",
+					},
+					{
+						name: "iCloud Sync",
+						price: "¥0",
+						period: "完全無料 (Apple ID利用)",
+						description: "iPhoneとiPadで安全に同期したい方に",
+						features:
+							"iPhone & iPad リアルタイム同期\nCloudKit Private Database活用\nサードパーティサーバー不使用\n独自会員登録・外部アカウント不要\n端末内SwiftData暗号化保護\n完全なデータ主権とプライバシー",
+						cta_label: "同期仕様を見る",
+						cta_url: "/#features",
+						highlighted: true,
+					},
+				],
+			},
+			{
+				_type: "marketing_faq",
+				_version: 1,
+				_key: "pricing-faq",
+				headline: "料金に関するよくある質問",
+				items: [
+					{
+						question: "本当にすべての機能を無料で使えますか？",
+						answer:
+							"はい。すべての機能を完全無料でご利用いただけます。課金による機能解放や期間制限はありません。",
+					},
+					{
+						question: "iCloud同期に追加の料金は発生しますか？",
+						answer:
+							"発生しません。ご自身のApple IDに付帯するiCloudストレージ（無料の5GB枠で十分動作します）を利用するため、追加料金は不要です。",
+					},
+					{
+						question: "広告が表示されることはありますか？",
+						answer:
+							"一切ありません。画面のどこにも広告バナーやインタースティシャル広告は表示されず、快適に操作できます。",
+					},
+				],
+			},
+		],
+	},
+	contact: {
+		title: "Contact",
+		content: [
+			{
+				_type: "marketing_hero",
+				_version: 1,
+				_key: "contact-hero",
+				headline: "お問い合わせ・開発情報",
+				subheadline:
+					"Personal Kakeibo の仕様、開発ロードマップ、不具合報告やご要望についてはこちらからご確認ください。",
+				centered: true,
+			},
+		],
+	},
+};

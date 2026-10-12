@@ -1,10 +1,12 @@
 ---
-import { sanitizeHref } from "emdash";
-import { Image, type BlockComponentProps } from "emdash/ui";
-import type { PageContentBlock } from "../../../emdash-env";
+interface Props {
+	value: any;
+}
 
-type HeroBlock = Extract<PageContentBlock, { _type: "marketing_hero" }>;
-type Props = BlockComponentProps<HeroBlock>;
+function sanitizeHref(url?: string): string {
+	if (!url) return "#";
+	return url;
+}
 
 const { value } = Astro.props;
 const { anchor_id, headline, subheadline, image, centered } = value;
@@ -49,7 +51,7 @@ const secondaryCta =
 	</div>
 		{image ? (
 			<div class="hero-image">
-				<Image image={image} class="hero-image-media" priority />
+				<img src={image.src || image} alt={image.alt || ""} class="hero-image-media" />
 		</div>
 	) : !centered && (
 		<div class="hero-visual" aria-hidden="true">
